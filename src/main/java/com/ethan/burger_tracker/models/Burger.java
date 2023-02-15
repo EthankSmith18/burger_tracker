@@ -1,0 +1,120 @@
+package com.ethan.burger_tracker.models;
+
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+@Table(name = "burgers")
+public class Burger {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @NotNull
+  @Size(min = 1, max = 25, message="Burger name must be between 1 and 25 charcters.")
+  private String name;
+  @NotNull
+  @Size(min = 1, max = 25, message="Restaraunt must be between 1 and 25 charcters.")
+  private String restaraunt;
+  @NotNull
+  @Size(min = 1, max = 400, message="Notes must be between 1 and 400 charcters.")
+  private String notes;
+  @NotNull
+  @Min(value=1, message="Must be at least a rating of one.")
+  @Max(value=10, message="Must be at most a rating of ten.")
+  private Integer rating;
+
+  // This will not allow the createdAt column to be updated after creation
+  @Column(updatable = false)
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private Date createdAt;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private Date updatedAt;
+
+  public Burger() {
+  }
+
+  public Burger(String name, String restaraunt, String notes, int rating) {
+    this.name = name;
+    this.restaraunt = restaraunt;
+    this.notes = notes;
+    this.rating = rating;
+  }
+
+  // @PrePersist
+  // protected void onCreate(){
+  // this.createdAt = new Date();
+  // }
+  // @PreUpdate
+  // protected void onUpdate(){
+  // this.updatedAt = new Date();
+  // }
+
+  public Long getId() {
+    return this.id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getRestaraunt() {
+    return this.restaraunt;
+  }
+
+  public void setRestaraunt(String restaraunt) {
+    this.restaraunt = restaraunt;
+  }
+
+  public String getNotes() {
+    return this.notes;
+  }
+
+  public void setNotes(String notes) {
+    this.notes = notes;
+  }
+
+  public Integer getRating() {
+    return this.rating;
+  }
+
+  public void setRating(Integer rating) {
+    this.rating = rating;
+  }
+
+  public Date getCreatedAt() {
+    return this.createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Date getUpdatedAt() {
+    return this.updatedAt;
+  }
+
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+}
