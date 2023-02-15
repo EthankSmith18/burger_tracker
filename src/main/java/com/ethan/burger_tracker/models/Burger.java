@@ -1,15 +1,18 @@
 package com.ethan.burger_tracker.models;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,8 +24,8 @@ public class Burger {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @NotNull
-  @Size(min = 1, max = 25, message="Burger name must be between 1 and 25 charcters.")
+  @NotBlank
+  @Size(min = 1, message="Burger name must be included.")
   private String name;
   @NotNull
   @Size(min = 1, max = 25, message="Restaraunt must be between 1 and 25 charcters.")
@@ -45,21 +48,23 @@ public class Burger {
   public Burger() {
   }
 
-  public Burger(String name, String restaraunt, String notes, int rating) {
+  public Burger(String name, String restaraunt, String notes, int rating, Date createdAt, Date updatedAt) {
     this.name = name;
     this.restaraunt = restaraunt;
     this.notes = notes;
     this.rating = rating;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
-  // @PrePersist
-  // protected void onCreate(){
-  // this.createdAt = new Date();
-  // }
-  // @PreUpdate
-  // protected void onUpdate(){
-  // this.updatedAt = new Date();
-  // }
+  @PrePersist
+  protected void onCreate(){
+  this.createdAt = new Date();
+  }
+  @PreUpdate
+  protected void onUpdate(){
+  this.updatedAt = new Date();
+  }
 
   public Long getId() {
     return this.id;

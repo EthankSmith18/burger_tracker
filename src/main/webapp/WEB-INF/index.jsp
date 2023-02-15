@@ -62,6 +62,7 @@ pageEncoding="UTF-8"%>
           <td><c:out value="${b.restaraunt}"></c:out></td>
           <td><c:out value="${b.notes}"></c:out></td>
           <td><c:out value="${b.rating}"></c:out></td>
+          <td><a href="/burgers/edit/${b.id}">Edit</a></td>
         </tr>
       </c:forEach>
       </tbody>

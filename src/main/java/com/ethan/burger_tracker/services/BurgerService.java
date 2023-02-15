@@ -11,17 +11,22 @@ import com.ethan.burger_tracker.repositories.BurgerRepository;
 
 @Service
 public class BurgerService {
-  @Autowired
+    @Autowired
     BurgerRepository burgerRepository;
 
-    // returns all the books
+    // returns all the burgers
     public List<Burger> allBurgers() {
         return burgerRepository.findAll();
     }
 
-    // creates a book
+    // creates a burger
     public Burger createBurger(Burger b) {
         return burgerRepository.save(b);
+    }
+
+    // edit a burger
+    public void updateBurger(Burger b) {
+        burgerRepository.save(b);
     }
 
     // retrieves a book
@@ -34,10 +39,7 @@ public class BurgerService {
         }
     }
 
-    public Burger updateBook(Long id, String name, String restaraunt, String notes, Integer rating) {
-        return null;
-    }
 
-    public void deleteBook(Long id) {
+    public void deleteBurger(Long id) {
     }
 }
